@@ -51,14 +51,6 @@ def evaluate_retinaface_dynamic_batchsize(model_path : str, xpu_type: str, batch
     xpu_result = []
     total_time = 0.0
 
-    print('len(cpu_result)')
-    print(len(cpu_result))
-    print('cpu_result[0].shape')
-    print(cpu_result[0].shape)
-    print('cpu_result[1].shape')
-    print(cpu_result[1].shape)
-    print('cpu_result[2].shape')
-    print(cpu_result[2].shape)
 
     for i in range(warm_up):
         test_xpu_session.run(output_names, input_dict)
@@ -68,14 +60,6 @@ def evaluate_retinaface_dynamic_batchsize(model_path : str, xpu_type: str, batch
         xpu_result = test_xpu_session.run(output_names, input_dict)
         total_time += time.time() - start_time
     
-    print('len(xpu_result)')
-    print(len(xpu_result))
-    print('xpu_result[0].shape')
-    print(xpu_result[0].shape)
-    print('xpu_result[1].shape')
-    print(xpu_result[1].shape)
-    print('xpu_result[2].shape')
-    print(xpu_result[2].shape)
 
     max_difference = 0.0
     max_difference0 = 0.0

@@ -34,9 +34,6 @@ def evaluate_ecapa_dynamic_batchsize(model_path : str, xpu_type: str, batchsize:
     input_data = np.random.randn(batchsize, 200, 80).astype(np.float32)
     input_dict["feats"] = input_data
 
-    # print('input_data.shape')
-    # print(input_data.shape)
-
     # for input in inputs_info:
     #     print(input.shape)
     #     print(input.type)
@@ -55,13 +52,6 @@ def evaluate_ecapa_dynamic_batchsize(model_path : str, xpu_type: str, batchsize:
     total_time = 0.0
 
 
-    # print('cpu_result')
-    # print(cpu_result)
-    # print('len(cpu_result)')
-    # print(len(cpu_result))
-    print('cpu_result[0].shape')
-    print(cpu_result[0].shape)
-
     for i in range(warm_up):
         test_xpu_session.run(output_names, input_dict)
 
@@ -70,14 +60,6 @@ def evaluate_ecapa_dynamic_batchsize(model_path : str, xpu_type: str, batchsize:
         xpu_result = test_xpu_session.run(output_names, input_dict)
         total_time += time.time() - start_time
     
-
-    print('xpu_result')
-    print(xpu_result)
-    print('len(xpu_result)')
-    print(len(xpu_result))
-    print('xpu_result[0].shape')
-    print(xpu_result[0].shape)
-
 
     max_difference = 0.0
     L2norm = 0.0

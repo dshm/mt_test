@@ -58,10 +58,6 @@ def evaluate_slowfast_dynamic_batchsize(model_path : str, xpu_type: str, batchsi
 
     cpu_result = test_cpu_session.run(output_names, input_dict)
 
-    print('len(cpu_result)')
-    print(len(cpu_result))
-    print('cpu_result[0].shape')
-    print(cpu_result[0].shape)
 
     xpu_result = []
     total_time = 0.0

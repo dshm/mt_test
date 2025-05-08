@@ -19,7 +19,6 @@ ort_type_to_numpy_type_map = {
 
 
 def evaluate_yolov8_dynamic_batchsize(model_path : str, xpu_type: str, batchsize: int):
-    print('xxxxxxxxxxxxxxxxxxxx')
     if xpu_type == 'musa': 
         test_xpu_session = ort.InferenceSession(model_path, providers=['MUSAExecutionProvider'])
     else:
@@ -52,10 +51,6 @@ def evaluate_yolov8_dynamic_batchsize(model_path : str, xpu_type: str, batchsize
     xpu_result = []
     total_time = 0.0
 
-    print('len(cpu_result)')
-    print(len(cpu_result))
-    print('cpu_result[0].shape')
-    print(cpu_result[0].shape)
 
     for i in range(warm_up):
         test_xpu_session.run(output_names, input_dict)
@@ -65,10 +60,6 @@ def evaluate_yolov8_dynamic_batchsize(model_path : str, xpu_type: str, batchsize
         xpu_result = test_xpu_session.run(output_names, input_dict)
         total_time += time.time() - start_time
     
-    print('len(xpu_result)')
-    print(len(xpu_result))
-    print('xpu_result[0].shape')
-    print(xpu_result[0].shape)
 
     max_difference = 0.0
     L2norm = 0.0

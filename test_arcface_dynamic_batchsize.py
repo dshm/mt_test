@@ -48,35 +48,17 @@ def evaluate_arcface_dynamic_batchsize(model_path : str, xpu_type: str, batchsiz
 
 
     cpu_result = test_cpu_session.run(output_names, input_dict)
-    # print('cpu_result shape')
-    # print(len(cpu_result))
-    # print(cpu_result)
-    # print(cpu_result[0])
-    print(cpu_result[0].shape)
     xpu_result = []
     total_time = 0.0
 
     for i in range(warm_up):
         test_xpu_session.run(output_names, input_dict)
 
-
-    print('output_names')
-    print(output_names)
-
     for i in range(iter):
         start_time = time.time()
         xpu_result = test_xpu_session.run(output_names, input_dict)
         total_time += time.time() - start_time
     
-    # print('xpu_result shape')
-    # print(len(xpu_result))
-    # print(xpu_result)
-    # print(xpu_result[0])
-    print(xpu_result[0].shape)
-
-    # print('output_names')
-    # print(output_names)
-
 
     max_difference = 0.0
     L2norm = 0.0
@@ -111,10 +93,5 @@ if __name__ == "__main__":
     for idx in range(len(batch_size_num)):
         print("Batchsize ", batch_size_num[idx])
         print("Throughput rate ", throughput_rate[idx])
-
-    # md, l2 = evaluate_arcface_dynamic_batchsize(args.model, args.xpu, 4)
-    
-    # print("Max: ", md)
-    # print("Relative Difference: ", l2)
 
     # print('Device: {}\ndata type: fp16\ndataset size: {}\nrequired top1: 78.00%, top1: {:.2f}%\nbatch size is 24\nuse time: {:.2f} Seconds\nlatency: {:.2f}ms/batch\nthroughput: {:.2f} fps'.format(gpu_id, dataset_size, top1_accuracy.item(), total_time, 1000.0 * total_time / batch_cnt, batch_cnt * 24 / total_time))
